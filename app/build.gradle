@@ -63,7 +63,7 @@ dependencies {
     compile "com.squareup.picasso:picasso:2.5.2"
     compile "com.jakewharton.picasso:picasso2-okhttp3-downloader:1.0.1"
 
-//    compile "com.jakewharton:kotterknife:0.1.0-SNAPSHOT"
+    compile "com.jakewharton:kotterknife:0.1.0-SNAPSHOT"
     compile "com.jakewharton.timber:timber:4.1.1"
     compile "com.jakewharton.byteunits:byteunits:0.9.1"
     compile "com.jakewharton.threetenabp:threetenabp:1.0.3"
@@ -88,5 +88,8 @@ buildscript {
 
 repositories {
     mavenCentral()
+    maven {
+        url "https://oss.sonatype.org/content/repositories/snapshots"
+    }
 }
 

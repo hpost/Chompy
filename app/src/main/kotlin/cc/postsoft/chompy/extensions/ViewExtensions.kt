@@ -18,11 +18,3 @@ var TextView.textColor: Int
 fun View.hideKeyboard() {
     activity.hideKeyboard()
 }
-
-fun View.slideExit() {
-    if (translationY == 0f) animate().translationY(-height.toFloat())
-}
-
-fun View.slideEnter() {
-    if (translationY < 0f) animate().translationY(0f)
-}
