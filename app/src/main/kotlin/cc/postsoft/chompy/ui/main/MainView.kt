@@ -11,11 +11,14 @@ import butterknife.bindView
 import cc.postsoft.chompy.App
 import cc.postsoft.chompy.R
 import cc.postsoft.chompy.data.AppPreferences
+import cc.postsoft.chompy.data.api.ApiController
 import cc.postsoft.chompy.extensions.easeInVertical
+import cc.postsoft.chompy.extensions.isSuccess
 import com.jakewharton.rxbinding.view.preDraws
 import com.squareup.picasso.Picasso
 import rx.functions.Func0
 import rx.subscriptions.CompositeSubscription
+import timber.log.Timber
 import javax.inject.Inject
 
 class MainView(context: Context, attrs: AttributeSet) : CoordinatorLayout(context, attrs) {
@@ -25,10 +28,13 @@ class MainView(context: Context, attrs: AttributeSet) : CoordinatorLayout(contex
     val fab: FloatingActionButton by bindView(R.id.fab)
 
     @Inject
-    lateinit var picasso: Picasso
+    lateinit var preferences: AppPreferences
 
     @Inject
-    lateinit var preferences: AppPreferences
+    lateinit var apiController: ApiController
+
+    @Inject
+    lateinit var picasso: Picasso
 
     private val subscriptions = CompositeSubscription()
 
@@ -65,6 +71,12 @@ class MainView(context: Context, attrs: AttributeSet) : CoordinatorLayout(contex
             toolbar.easeInVertical() { startDelay = 200 }
         }
         postDelayed({ fab.show() }, 1000)
+
+        subscriptions.add(apiController
+                .listSprigMenu()
+                .subscribe({ result -> if (result.isSuccess()) Timber.d("succss with Sprig!") }) {
+                    Timber.e(it, "error while fetching Sprig menu")
+                })
     }
 
     override fun onDetachedFromWindow() {
