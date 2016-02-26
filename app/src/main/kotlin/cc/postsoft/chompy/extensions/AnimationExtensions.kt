@@ -13,13 +13,13 @@ import cc.postsoft.chompy.R
 
 object AnimationConstants {
 
-    val LICKETY_SPLIT = 150L;
+    const val LICKETY_SPLIT = 150L;
 
-    val SHORT = 250L;
+    const val SHORT = 250L;
 
-    val MEDIUM = 400L;
+    const val MEDIUM = 400L;
 
-    val LONG = 600L;
+    const val LONG = 600L;
 
     val TRANSLATION = dip(75)
 

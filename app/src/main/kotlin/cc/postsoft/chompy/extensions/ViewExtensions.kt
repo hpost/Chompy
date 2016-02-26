@@ -2,7 +2,9 @@ package cc.postsoft.chompy.extensions
 
 import android.app.Activity
 import android.content.Context
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 
 val View.ctx: Context
@@ -18,3 +20,6 @@ var TextView.textColor: Int
 fun View.hideKeyboard() {
     activity.hideKeyboard()
 }
+
+fun View.inflate(layoutResId: Int, inflater: LayoutInflater?, container: ViewGroup?): View? =
+        inflater?.inflate(layoutResId, container, false)
