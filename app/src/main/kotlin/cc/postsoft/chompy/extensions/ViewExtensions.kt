@@ -2,6 +2,7 @@ package cc.postsoft.chompy.extensions
 
 import android.app.Activity
 import android.content.Context
+import android.support.design.widget.Snackbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,5 +22,7 @@ fun View.hideKeyboard() {
     activity.hideKeyboard()
 }
 
-fun View.inflate(layoutResId: Int, inflater: LayoutInflater?, container: ViewGroup?): View? =
+fun inflate(layoutResId: Int, inflater: LayoutInflater?, container: ViewGroup?): View? =
         inflater?.inflate(layoutResId, container, false)
+
+inline fun View.snack(msg: CharSequence) = Snackbar.make(this, msg, Snackbar.LENGTH_SHORT).show()
