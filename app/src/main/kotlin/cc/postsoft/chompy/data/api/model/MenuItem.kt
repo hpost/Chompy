@@ -4,8 +4,10 @@ import com.squareup.moshi.Json
 
 data class MenuItem(
         var dish: String? = null,
+        var restaurant: String? = null,
         var description: String? = null,
-        @Json(name = "image_url") var imageUrl: String? = null
+        @Json(name = "image_url") var imageUrl: String? = null,
+        var price: String? = null
 )
 
 

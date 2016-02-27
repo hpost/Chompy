@@ -1,22 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<cc.postsoft.chompy.ui.main.MainView xmlns:android="http://schemas.android.com/apk/res/android"
-                                     xmlns:app="http://schemas.android.com/apk/res-auto"
-                                     android:layout_width="match_parent"
-                                     android:layout_height="match_parent">
+<cc.postsoft.chompy.ui.main.MainView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <Toolbar
         android:id="@+id/toolbar"
         style="@style/Toolbar"
-        app:layout_scrollFlags="scroll|enterAlways|snap"/>
-    <!--android:navigationIcon="@null" />-->
+        android:contentInsetLeft="0dp"
+        android:contentInsetStart="0dp"
+        android:padding="0dp">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:borderWidth="0dp"/>
-    <!--android:src="@drawable/ic_shopping_cart_white_24dp"-->
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_layout"
+            style="@style/TabLayout"
+            app:tabGravity="center"/>
+
+    </Toolbar>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"/>
 
 </cc.postsoft.chompy.ui.main.MainView>

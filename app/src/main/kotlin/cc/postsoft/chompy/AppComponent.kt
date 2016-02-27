@@ -4,6 +4,7 @@ import cc.postsoft.chompy.data.DataModule
 import cc.postsoft.chompy.data.api.ApiModule
 import cc.postsoft.chompy.ui.main.MainActivity
 import cc.postsoft.chompy.ui.main.MainView
+import cc.postsoft.chompy.ui.main.MenuView
 import dagger.Component
 import javax.inject.Singleton
 
@@ -13,5 +14,6 @@ interface AppComponent {
     fun inject(application: App)
     fun inject(activity: MainActivity)
     fun inject(activity: MainView)
+    fun inject(activity: MenuView)
 }
 

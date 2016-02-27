@@ -24,4 +24,13 @@ class ApiController @Inject constructor(val api: MenuApi) {
             }
             .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 
+    fun listCaviarMenu(): Observable<Result<ListMenuResponse>> = api.listCaviarMenu()
+            .retryAfterErrorResult()
+            .doOnNext {
+                if (it.isSuccess()) {
+                    val menuItems = it.response().body().results
+                    Timber.d("${menuItems?.size} Caviar menu items: $menuItems}")
+                }
+            }
+            .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 }
