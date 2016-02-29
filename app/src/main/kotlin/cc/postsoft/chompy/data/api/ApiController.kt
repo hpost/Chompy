@@ -1,6 +1,8 @@
 package cc.postsoft.chompy.data.api
 
 import cc.postsoft.chompy.data.api.model.ListMenuResponse
+import cc.postsoft.chompy.data.api.model.ListUberMenuRequest
+import cc.postsoft.chompy.data.api.model.ListUberMenuResponse
 import cc.postsoft.chompy.extensions.isSuccess
 import cc.postsoft.chompy.extensions.retryAfterErrorResult
 import retrofit2.adapter.rxjava.Result
@@ -12,7 +14,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ApiController @Inject constructor(val api: MenuApi) {
+class ApiController @Inject constructor(val api: MenuApi, val uberApi: UberMenuApi) {
 
     fun listSprigMenu(): Observable<Result<ListMenuResponse>> = api.listSprigMenu()
             .retryAfterErrorResult()
@@ -30,6 +32,16 @@ class ApiController @Inject constructor(val api: MenuApi) {
                 if (it.isSuccess()) {
                     val menuItems = it.response().body().results
                     Timber.d("${menuItems?.size} Caviar menu items: $menuItems}")
+                }
+            }
+            .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+
+    fun listUberMenu(): Observable<Result<ListUberMenuResponse>> = uberApi.listUberMenu(ListUberMenuRequest())
+            .retryAfterErrorResult()
+            .doOnNext {
+                if (it.isSuccess()) {
+                    val menuItems = it.response().body().menu?.get(0)?.meals
+                    Timber.d("${menuItems?.size} Uber menu items: $menuItems")
                 }
             }
             .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())

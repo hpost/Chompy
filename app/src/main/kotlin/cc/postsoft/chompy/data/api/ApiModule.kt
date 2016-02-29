@@ -23,6 +23,7 @@ class ApiModule {
     companion object {
 
         val BASE_URL = "https://api.import.io/store/connector/"
+        val BASE_URL_UBER = "https://ubereats-city.appspot.com/_api/"
 
         /**
          * `cc.postsoft.chompy; 0.1; 1; Sony D6503; 4.4.2; en_US`
@@ -55,6 +56,7 @@ class ApiModule {
 
     @Provides
     @Singleton
+    @Named("Import.io")
     fun provideRetrofit(@Named("Api") client: OkHttpClient, moshi: Moshi): Retrofit =
             Retrofit.Builder()
                     .baseUrl(BASE_URL)
@@ -65,6 +67,21 @@ class ApiModule {
 
     @Provides
     @Singleton
-    fun provideMenuApi(retrofit: Retrofit): MenuApi = retrofit.create(MenuApi::class.java)
+    fun provideMenuApi(@Named("Import.io") retrofit: Retrofit): MenuApi = retrofit.create(MenuApi::class.java)
+
+    @Provides
+    @Singleton
+    @Named("Uber")
+    fun provideRetrofitUber(@Named("Api") client: OkHttpClient, moshi: Moshi): Retrofit =
+            Retrofit.Builder()
+                    .baseUrl(BASE_URL_UBER)
+                    .client(client)
+                    .addConverterFactory(MoshiConverterFactory.create(moshi))
+                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                    .build()
+
+    @Provides
+    @Singleton
+    fun provideUberMenuApi(@Named("Uber") retrofit: Retrofit): UberMenuApi = retrofit.create(UberMenuApi::class.java)
 }
 

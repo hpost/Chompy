@@ -88,14 +88,14 @@ class MenuView(context: Context, attrs: AttributeSet) : BetterViewAnimator(conte
         super.onAttachedToWindow()
 
         // list menu
-        val menuObservable: Observable<Result<ListMenuResponse>> = menuSubject.asObservable()
+        val menuObservable: Observable<Result<out ListMenuResponse>> = menuSubject.asObservable()
                 .startWith(TRIGGER)
                 .doOnNext { if (adapter.itemCount == 0) swipeRefresh.isRefreshing = true }
                 .flatMap {
                     when (menu) {
                         Menu.CAVIAR -> apiController.listCaviarMenu()
-                        Menu.UBER -> apiController.listCaviarMenu() // TODO switch to Uber API
                         Menu.SPRIG -> apiController.listSprigMenu()
+                        Menu.UBER -> apiController.listUberMenu()
                     }
                 }
                 .share() // multiplex
