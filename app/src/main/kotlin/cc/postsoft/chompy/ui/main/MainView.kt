@@ -14,12 +14,9 @@ import cc.postsoft.chompy.App
 import cc.postsoft.chompy.R
 import cc.postsoft.chompy.data.AppPreferences
 import cc.postsoft.chompy.extensions.ctx
-import cc.postsoft.chompy.extensions.easeInVertical
 import cc.postsoft.chompy.extensions.inflate
 import cc.postsoft.chompy.ui.common.ViewPagerAdapter
 import cc.postsoft.chompy.ui.main.MenuView.Menu.*
-import com.jakewharton.rxbinding.view.preDraws
-import rx.functions.Func0
 import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
 
@@ -48,9 +45,6 @@ class MainView(context: Context, attrs: AttributeSet) : RelativeLayout(context, 
     override fun onFinishInflate() {
         super.onFinishInflate()
 
-        // prepare entry animation
-        toolbar.visibility = View.INVISIBLE
-
         val inflater = LayoutInflater.from(ctx)
         caviarView = inflate(R.layout.view_menu, inflater, viewPager) as MenuView
         caviarView.menu = CAVIAR
@@ -67,11 +61,6 @@ class MainView(context: Context, attrs: AttributeSet) : RelativeLayout(context, 
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-
-        // entry animation
-        preDraws(Func0 { false }).limit(1).subscribe {
-            toolbar.easeInVertical()
-        }
     }
 
     override fun onDetachedFromWindow() {
