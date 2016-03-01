@@ -11,19 +11,23 @@ import butterknife.bindView
 import cc.postsoft.chompy.R
 import cc.postsoft.chompy.data.api.model.MenuItem
 import cc.postsoft.chompy.extensions.api23
+import cc.postsoft.chompy.extensions.fade
+import cc.postsoft.chompy.extensions.translate
 import cc.postsoft.chompy.ui.common.Scrims
+import com.jakewharton.rxbinding.view.globalLayouts
 import com.squareup.picasso.Picasso
+import org.jetbrains.anko.dip
+import timber.log.Timber
 
 class MenuItemRow(context: Context, attrs: AttributeSet) : RelativeLayout(context, attrs) {
 
     val photo: ImageView by bindView(R.id.photo)
     val scrim: ImageView by bindView(R.id.scrim)
-    val preview: TextView by bindView(R.id.preview)
-    val details: View by bindView(R.id.details)
+    val detailScrim: View by bindView(R.id.detail_scrim)
     val dish: TextView by bindView(R.id.dish)
+    val details: View by bindView(R.id.details)
     val restaurant: TextView by bindView(R.id.restaurant)
     val description: TextView by bindView(R.id.description)
-    val price: TextView by bindView(R.id.price)
 
     lateinit var clickListener: (MenuItem) -> Unit
 
@@ -36,15 +40,31 @@ class MenuItemRow(context: Context, attrs: AttributeSet) : RelativeLayout(contex
             description.hyphenationFrequency = Layout.HYPHENATION_FREQUENCY_FULL
             description.breakStrategy = Layout.BREAK_STRATEGY_HIGH_QUALITY
         }
+
         setOnClickListener {
-            if (details.visibility != View.VISIBLE) {
-                preview.visibility = View.INVISIBLE
-                details.visibility = View.VISIBLE
+            Timber.e("details: height=${details.height}, top=${details.top}, bottom=${details.bottom}")
+            Timber.e("dish: top=${dish.top}, bottom=${dish.bottom}")
+            if (details.visibility != VISIBLE) {
+                Timber.e("SHOW translation: dish=${dish.translationY}, details=${details.translationY}")
+                val translation = -details.height
+                dish.translate(translationY = translation + dip(16))
+                details.translate()
+                detailScrim.fade()
             } else {
-                details.visibility = View.INVISIBLE
-                preview.visibility = View.VISIBLE
+                Timber.e("HIDE translation: dish=${dish.translationY}, details=${details.translationY}")
+                dish.translate()
+                details.translate(translationY = details.height) { withEndAction { details.visibility = INVISIBLE } }
+                detailScrim.fade(alpha = 0f)
             }
         }
+    }
+
+    /**
+     * Cropping view to square
+     */
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+        setMeasuredDimension(measuredWidth, measuredWidth)
     }
 
     fun bindTo(menuItem: MenuItem, clickListener: (MenuItem) -> Unit, picasso: Picasso) {
@@ -55,15 +75,18 @@ class MenuItemRow(context: Context, attrs: AttributeSet) : RelativeLayout(contex
                     .centerCrop()
                     .into(photo)
         }
-        preview.text = menuItem.dish
-        preview.visibility = View.VISIBLE
         dish.text = menuItem.dish
-        restaurant.visibility = if (menuItem.restaurant?.isBlank() ?: true) View.GONE else View.VISIBLE
-        restaurant.text = menuItem.restaurant
-        description.visibility = if (menuItem.description?.isBlank() ?: true) View.GONE else View.VISIBLE
-        description.text = menuItem.description
-        price.text = if (menuItem.price?.startsWith('$') ?: true) menuItem.price else "$" + menuItem.price
-        details.visibility = View.INVISIBLE
+        restaurant.visibility = if (menuItem.restaurant?.isBlank() ?: true) GONE else VISIBLE
+        val priceText = if (menuItem.price?.startsWith('$') ?: true) menuItem.price else "$" + menuItem.price
+        restaurant.text = "${menuItem.restaurant}  •  $priceText"
+        description.visibility = if (menuItem.description?.isBlank() ?: true) GONE else VISIBLE
+        description.text = menuItem.description?.trim()
         this.clickListener = clickListener
+        // reset animation state
+        detailScrim.alpha = 0f
+        detailScrim.visibility = INVISIBLE
+        dish.translationY = 0f
+        details.visibility = INVISIBLE
+        details.globalLayouts().limit(1).subscribe { details.translationY = details.height.toFloat() }
     }
 }
