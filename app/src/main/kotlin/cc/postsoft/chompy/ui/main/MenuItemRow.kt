@@ -17,7 +17,6 @@ import cc.postsoft.chompy.data.api.model.MenuItem
 import com.jakewharton.rxbinding.view.globalLayouts
 import com.squareup.picasso.Picasso
 import org.jetbrains.anko.dip
-import timber.log.Timber
 
 class MenuItemRow(context: Context, attrs: AttributeSet) : RelativeLayout(context, attrs) {
 
@@ -42,16 +41,12 @@ class MenuItemRow(context: Context, attrs: AttributeSet) : RelativeLayout(contex
         }
 
         setOnClickListener {
-            Timber.e("details: height=${details.height}, top=${details.top}, bottom=${details.bottom}")
-            Timber.e("dish: top=${dish.top}, bottom=${dish.bottom}")
             if (details.visibility != VISIBLE) {
-                Timber.e("SHOW translation: dish=${dish.translationY}, details=${details.translationY}")
                 val translation = -details.height
                 dish.translate(translationY = translation + dip(16))
                 details.translate()
                 detailScrim.fade()
             } else {
-                Timber.e("HIDE translation: dish=${dish.translationY}, details=${details.translationY}")
                 dish.translate()
                 details.translate(translationY = details.height) { withEndAction { details.visibility = INVISIBLE } }
                 detailScrim.fade(alpha = 0f)
