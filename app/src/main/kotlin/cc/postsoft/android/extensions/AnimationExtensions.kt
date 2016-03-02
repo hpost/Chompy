@@ -1,4 +1,4 @@
-package cc.postsoft.chompy.extensions
+package cc.postsoft.android.extensions
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter

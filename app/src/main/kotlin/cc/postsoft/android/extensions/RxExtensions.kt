@@ -1,4 +1,4 @@
-package cc.postsoft.chompy.extensions
+package cc.postsoft.android.extensions
 
 import retrofit2.adapter.rxjava.Result
 import rx.Observable

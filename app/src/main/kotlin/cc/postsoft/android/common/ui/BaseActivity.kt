@@ -1,15 +1,10 @@
-package cc.postsoft.chompy.ui.common
+package cc.postsoft.android.common.ui
 
-import android.content.Context
 import android.content.pm.ActivityInfo
-import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.view.View
-import android.view.inputmethod.InputMethodManager
-import cc.postsoft.chompy.BuildConfig
+import cc.postsoft.android.extensions.hideKeyboard
 import cc.postsoft.chompy.R
-import cc.postsoft.chompy.extensions.hideKeyboard
 
 abstract class BaseActivity : AppCompatActivity() {
 

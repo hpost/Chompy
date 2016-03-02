@@ -1,4 +1,4 @@
-package cc.postsoft.chompy.ui.common
+package cc.postsoft.android.common.ui
 
 import android.support.v4.view.PagerAdapter
 import android.view.View

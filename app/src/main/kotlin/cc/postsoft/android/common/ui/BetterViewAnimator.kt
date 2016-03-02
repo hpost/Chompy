@@ -1,4 +1,4 @@
-package cc.postsoft.chompy.ui.common
+package cc.postsoft.android.common.ui
 
 import android.content.Context
 import android.util.AttributeSet

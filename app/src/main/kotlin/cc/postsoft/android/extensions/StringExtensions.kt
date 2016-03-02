@@ -1,3 +1,3 @@
-package cc.postsoft.chompy.extensions
+package cc.postsoft.android.extensions
 
 fun CharSequence.isBlank() = toString().trim().length == 0

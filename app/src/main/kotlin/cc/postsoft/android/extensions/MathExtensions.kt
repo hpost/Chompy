@@ -1,4 +1,4 @@
-package cc.postsoft.chompy.extensions
+package cc.postsoft.android.extensions
 
 inline fun ld(exponent: Int) = Math.pow(2.0, exponent.toDouble()).toInt()
 

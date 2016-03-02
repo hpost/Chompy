@@ -1,4 +1,4 @@
-package cc.postsoft.chompy.ui.common
+package cc.postsoft.android.common.ui
 
 import android.graphics.Rect
 import android.support.v7.widget.RecyclerView

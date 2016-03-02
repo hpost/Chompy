@@ -10,11 +10,14 @@ import android.view.WindowInsets
 import android.widget.RelativeLayout
 import android.widget.Toolbar
 import butterknife.bindView
+import cc.postsoft.android.common.ui.ViewPagerAdapter
+import cc.postsoft.android.extensions.color
+import cc.postsoft.android.extensions.colorFade
+import cc.postsoft.android.extensions.ctx
+import cc.postsoft.android.extensions.window
 import cc.postsoft.chompy.App
 import cc.postsoft.chompy.R
 import cc.postsoft.chompy.data.AppPreferences
-import cc.postsoft.chompy.extensions.*
-import cc.postsoft.chompy.ui.common.ViewPagerAdapter
 import cc.postsoft.chompy.ui.main.MenuView.Menu.*
 import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
@@ -45,11 +48,11 @@ class MainView(context: Context, attrs: AttributeSet) : RelativeLayout(context, 
         super.onFinishInflate()
 
         val inflater = LayoutInflater.from(ctx)
-        caviarView = inflate(R.layout.view_menu, inflater, viewPager) as MenuView
+        caviarView = cc.postsoft.android.extensions.inflate(R.layout.view_menu, inflater, viewPager) as MenuView
         caviarView.menu = CAVIAR
-        uberView = inflate(R.layout.view_menu, inflater, viewPager) as MenuView
+        uberView = cc.postsoft.android.extensions.inflate(R.layout.view_menu, inflater, viewPager) as MenuView
         uberView.menu = UBER
-        sprigView = inflate(R.layout.view_menu, inflater, viewPager) as MenuView
+        sprigView = cc.postsoft.android.extensions.inflate(R.layout.view_menu, inflater, viewPager) as MenuView
         sprigView.menu = SPRIG
 
         viewPager.adapter = sectionPagerAdapter

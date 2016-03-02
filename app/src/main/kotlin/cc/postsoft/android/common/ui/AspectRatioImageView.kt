@@ -1,8 +1,7 @@
-package cc.postsoft.chompy.ui.common
+package cc.postsoft.android.common.ui
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.View
 import android.view.View.MeasureSpec.EXACTLY
 import android.widget.ImageView
 import cc.postsoft.chompy.R
@@ -25,10 +24,10 @@ class AspectRatioImageView : ImageView {
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         var widthMeasureSpec = widthMeasureSpec
         var heightMeasureSpec = heightMeasureSpec
-        val widthMode = View.MeasureSpec.getMode(widthMeasureSpec)
-        var widthSize = View.MeasureSpec.getSize(widthMeasureSpec)
-        val heightMode = View.MeasureSpec.getMode(heightMeasureSpec)
-        var heightSize = View.MeasureSpec.getSize(heightMeasureSpec)
+        val widthMode = MeasureSpec.getMode(widthMeasureSpec)
+        var widthSize = MeasureSpec.getSize(widthMeasureSpec)
+        val heightMode = MeasureSpec.getMode(heightMeasureSpec)
+        var heightSize = MeasureSpec.getSize(heightMeasureSpec)
 
         if (widthMode == EXACTLY) {
             if (heightMode != EXACTLY) {
@@ -40,8 +39,8 @@ class AspectRatioImageView : ImageView {
             throw IllegalStateException("Either width or height must be EXACTLY.")
         }
 
-        widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(widthSize, EXACTLY)
-        heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(heightSize, EXACTLY)
+        widthMeasureSpec = MeasureSpec.makeMeasureSpec(widthSize, EXACTLY)
+        heightMeasureSpec = MeasureSpec.makeMeasureSpec(heightSize, EXACTLY)
 
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
     }

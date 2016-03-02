@@ -8,12 +8,12 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import butterknife.bindView
+import cc.postsoft.android.common.ui.Scrims
+import cc.postsoft.android.extensions.api23
+import cc.postsoft.android.extensions.fade
+import cc.postsoft.android.extensions.translate
 import cc.postsoft.chompy.R
 import cc.postsoft.chompy.data.api.model.MenuItem
-import cc.postsoft.chompy.extensions.api23
-import cc.postsoft.chompy.extensions.fade
-import cc.postsoft.chompy.extensions.translate
-import cc.postsoft.chompy.ui.common.Scrims
 import com.jakewharton.rxbinding.view.globalLayouts
 import com.squareup.picasso.Picasso
 import org.jetbrains.anko.dip

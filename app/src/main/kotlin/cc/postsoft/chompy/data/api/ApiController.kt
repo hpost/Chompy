@@ -1,10 +1,10 @@
 package cc.postsoft.chompy.data.api
 
+import cc.postsoft.android.extensions.isSuccess
+import cc.postsoft.android.extensions.retryAfterErrorResult
 import cc.postsoft.chompy.data.api.model.ListMenuResponse
 import cc.postsoft.chompy.data.api.model.ListUberMenuRequest
 import cc.postsoft.chompy.data.api.model.ListUberMenuResponse
-import cc.postsoft.chompy.extensions.isSuccess
-import cc.postsoft.chompy.extensions.retryAfterErrorResult
 import retrofit2.adapter.rxjava.Result
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
