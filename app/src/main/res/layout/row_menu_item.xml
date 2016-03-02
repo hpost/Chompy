@@ -8,7 +8,7 @@
     android:foreground="?attr/selectableItemBackground"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <cc.postsoft.chompy.ui.common.AspectRatioImageView
+    <cc.postsoft.android.common.ui.AspectRatioImageView
         android:id="@+id/photo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
