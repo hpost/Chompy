@@ -13,8 +13,7 @@ import butterknife.bindView
 import cc.postsoft.chompy.App
 import cc.postsoft.chompy.R
 import cc.postsoft.chompy.data.AppPreferences
-import cc.postsoft.chompy.extensions.ctx
-import cc.postsoft.chompy.extensions.inflate
+import cc.postsoft.chompy.extensions.*
 import cc.postsoft.chompy.ui.common.ViewPagerAdapter
 import cc.postsoft.chompy.ui.main.MenuView.Menu.*
 import rx.subscriptions.CompositeSubscription
@@ -56,7 +55,20 @@ class MainView(context: Context, attrs: AttributeSet) : RelativeLayout(context, 
         viewPager.adapter = sectionPagerAdapter
         viewPager.offscreenPageLimit = sectionPagerAdapter.count
         viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
+        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageSelected(position: Int) {
+                setColor(position)
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {
+            }
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            }
+        })
         tabLayout.setupWithViewPager(viewPager)
+
+        setColor(viewPager.currentItem, animate = false)
     }
 
     override fun onAttachedToWindow() {
@@ -74,6 +86,27 @@ class MainView(context: Context, attrs: AttributeSet) : RelativeLayout(context, 
         return super.onApplyWindowInsets(insets)
     }
     //endregion Lifecycle
+
+    private fun setColor(position: Int, animate: Boolean = true) {
+        val color: Int = when (position) {
+            CAVIAR.ordinal -> color(R.color.orange)
+            UBER.ordinal -> color(R.color.grey)
+            SPRIG.ordinal -> color(R.color.green)
+            else -> color(R.color.colorPrimary)
+        }
+        val colorDark: Int = when (position) {
+            CAVIAR.ordinal -> color(R.color.orangeDark)
+            UBER.ordinal -> color(R.color.greyDark)
+            SPRIG.ordinal -> color(R.color.greenDark)
+            else -> color(R.color.colorPrimaryDark)
+        }
+        if (animate) {
+            toolbar.colorFade(color)
+        } else {
+            toolbar.setBackgroundColor(color)
+        }
+        window.statusBarColor = colorDark
+    }
 
     val sectionPagerAdapter = object : ViewPagerAdapter() {
         override fun getCount(): Int = 3

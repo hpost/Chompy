@@ -73,7 +73,6 @@ class MenuView(context: Context, attrs: AttributeSet) : BetterViewAnimator(conte
         // prepare entry animation
         menuList.visibility = View.INVISIBLE
 
-        swipeRefresh.setColorSchemeResources(R.color.colorAccent)
         adapter = MenuItemAdapter(clickListener, picasso)
 
         val padding = dip(4)
