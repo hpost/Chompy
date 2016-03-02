@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.TextView
 
 val View.ctx: Context
@@ -13,6 +14,9 @@ val View.ctx: Context
 
 val View.activity: Activity
     get() = context as Activity
+
+val View.window: Window
+    get() = activity.window
 
 var TextView.textColor: Int
     get() = currentTextColor

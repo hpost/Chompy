@@ -2,6 +2,10 @@ package cc.postsoft.chompy.extensions
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.animation.ArgbEvaluator
+import android.animation.ValueAnimator
+import android.graphics.drawable.ColorDrawable
+import android.support.annotation.ColorRes
 import android.support.v4.view.animation.FastOutLinearInInterpolator
 import android.support.v4.view.animation.FastOutSlowInInterpolator
 import android.support.v4.view.animation.LinearOutSlowInInterpolator
@@ -122,4 +126,20 @@ fun View.easeInVertical(startDelay: Long = 0, build: (ViewPropertyAnimator.() ->
         build?.let { anim.build() }
         anim.start()
     }
+}
+
+fun colorFade(@ColorRes from: Int, @ColorRes to: Int, update: (Int) -> Unit) {
+    val anim = ValueAnimator.ofObject(ArgbEvaluator(), from, to)
+    anim.duration = AnimationConstants.MEDIUM
+    anim.interpolator = AnimationConstants.LINEAR_OUT_SLOW_IN
+    anim.addUpdateListener { update(it.animatedValue as Int) }
+    anim.start()
+}
+
+fun View.colorFade(@ColorRes to: Int) {
+    if (background !is ColorDrawable) {
+        throw IllegalArgumentException("View needs to have a ColorDrawable background in order to animate the color")
+    }
+    val from = (background as ColorDrawable).color
+    colorFade(from, to) { setBackgroundColor(it) }
 }
