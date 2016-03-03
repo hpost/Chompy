@@ -141,6 +141,7 @@ fun View.easeOutVertical(startDelay: Long = 0, build: (ViewPropertyAnimator.() -
 fun View.reveal(show: Boolean = true, centerX: Int? = null, centerY: Int? = null,
                 build: (Animator.() -> Unit)? = null) {
     if (!isAttachedToWindow) {
+        visibility = if (show) View.VISIBLE else View.INVISIBLE
         return
     }
     val cx = (left + right) / 2
@@ -170,6 +171,37 @@ fun View.reveal(show: Boolean = true, centerX: Int? = null, centerY: Int? = null
 
 fun View.hide(centerX: Int? = null, centerY: Int? = null, build: (Animator.() -> Unit)? = null)
         = reveal(false, centerX, centerY, build)
+
+fun View.rotate(initRotation: Int? = null, rotation: Int = 0,
+                initAlpha: Float? = null, alpha: Float = 1f, startDelay: Long = 0,
+                build: (ViewPropertyAnimator.() -> Unit)? = null) {
+    initRotation?.let { this.rotation = initRotation.toFloat() }
+    initAlpha?.let { this.alpha = initAlpha }
+    if (alpha == 1f) visibility = View.VISIBLE
+    val anim = animate()
+            .alpha(alpha)
+            .rotation(rotation.toFloat())
+            .setStartDelay(startDelay)
+            .setDuration(AnimationConstants.MEDIUM)
+            .setListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    if (alpha == 0f) visibility = View.INVISIBLE
+                }
+            })
+    build?.let { anim.build() }
+    anim.start()
+}
+
+fun View.rotateIn(startDelay: Long = 0, build: (ViewPropertyAnimator.() -> Unit)? = null)
+        = rotate(initRotation = -180, initAlpha = 0f, startDelay = startDelay, build = build)
+
+fun View.rotateOut(startDelay: Long = 0, build: (ViewPropertyAnimator.() -> Unit)? = null)
+        = rotate(rotation = 180, alpha = 0f, startDelay = startDelay, build = build)
+
+fun View.morphTo(target: View, startDelay: Long = 0, build: (ViewPropertyAnimator.() -> Unit)? = null) {
+    this.rotateOut(startDelay, build)
+    target.rotateIn(startDelay, build)
+}
 
 fun colorFade(@ColorRes from: Int, @ColorRes to: Int, update: (Int) -> Unit) {
     val anim = ValueAnimator.ofObject(ArgbEvaluator(), from, to)
