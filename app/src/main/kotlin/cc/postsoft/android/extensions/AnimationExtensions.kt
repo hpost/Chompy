@@ -10,6 +10,7 @@ import android.support.v4.view.animation.FastOutLinearInInterpolator
 import android.support.v4.view.animation.FastOutSlowInInterpolator
 import android.support.v4.view.animation.LinearOutSlowInInterpolator
 import android.view.View
+import android.view.ViewAnimationUtils
 import android.view.ViewPropertyAnimator
 import android.view.animation.*
 import cc.postsoft.chompy.R
@@ -108,8 +109,8 @@ fun easeInVertical(startDelay: Long = 0, vararg views: View, build: (ViewPropert
     }
 }
 
-fun View.easeInVertical(startDelay: Long = 0, build: (ViewPropertyAnimator.() -> Unit)? = null) =
-        easeInVertical(startDelay, this) { build?.let { build() } }
+fun View.easeInVertical(startDelay: Long = 0, build: (ViewPropertyAnimator.() -> Unit)? = null)
+        = easeInVertical(startDelay, this) { build?.let { build() } }
 
 fun easeOutVertical(startDelay: Long = 0, vararg views: View, build: (ViewPropertyAnimator.() -> Unit)? = null) {
     var offset = AnimationConstants.TRANSLATION_SMALL.toFloat()
@@ -134,8 +135,41 @@ fun easeOutVertical(startDelay: Long = 0, vararg views: View, build: (ViewProper
     }
 }
 
-fun View.easeOutVertical(startDelay: Long = 0, build: (ViewPropertyAnimator.() -> Unit)? = null) =
-        easeOutVertical(startDelay, this) { build?.let { build() } }
+fun View.easeOutVertical(startDelay: Long = 0, build: (ViewPropertyAnimator.() -> Unit)? = null)
+        = easeOutVertical(startDelay, this) { build?.let { build() } }
+
+fun View.reveal(show: Boolean = true, centerX: Int? = null, centerY: Int? = null,
+                build: (Animator.() -> Unit)? = null) {
+    if (!isAttachedToWindow) {
+        return
+    }
+    val cx = (left + right) / 2
+    val cy = (top + bottom) / 2
+    val radius = Math.hypot(width.toDouble(), height.toDouble()).toFloat()
+
+    val anim = ViewAnimationUtils.createCircularReveal(this,
+            centerX ?: cx, centerY ?: cy,
+            if (show) 0f else radius, if (show) radius else 0f
+    )
+    anim.addListener(object : AnimatorListenerAdapter() {
+        override fun onAnimationStart(animation: Animator?) {
+            if (show) {
+                visibility = View.VISIBLE
+            }
+        }
+
+        override fun onAnimationEnd(animation: Animator?) {
+            if (!show) {
+                visibility = View.INVISIBLE
+            }
+        }
+    })
+    build?.let { anim.build() }
+    anim.start()
+}
+
+fun View.hide(centerX: Int? = null, centerY: Int? = null, build: (Animator.() -> Unit)? = null)
+        = reveal(false, centerX, centerY, build)
 
 fun colorFade(@ColorRes from: Int, @ColorRes to: Int, update: (Int) -> Unit) {
     val anim = ValueAnimator.ofObject(ArgbEvaluator(), from, to)
