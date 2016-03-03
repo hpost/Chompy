@@ -12,8 +12,7 @@ import android.support.v4.view.animation.LinearOutSlowInInterpolator
 import android.view.View
 import android.view.ViewAnimationUtils
 import android.view.ViewPropertyAnimator
-import android.view.animation.*
-import cc.postsoft.chompy.R
+import android.view.animation.CycleInterpolator
 
 
 object AnimationConstants {
@@ -22,19 +21,13 @@ object AnimationConstants {
     const val MEDIUM = 400L
     const val LONG = 600L
 
-    val TRANSLATION = dip(75)
     val TRANSLATION_SMALL = dip(16)
+    val TRANSLATION_MICRO = dip(4)
 
-    val ELEVATION = dimen(R.dimen.elevation_toolbar)
-
-    val ACCELERATE = AccelerateInterpolator()
-    val DECELERATE = DecelerateInterpolator()
     val LINEAR_OUT_SLOW_IN = LinearOutSlowInInterpolator()
     val FAST_OUT_SLOW_IN = FastOutSlowInInterpolator()
     val FAST_OUT_LINEAR_IN = FastOutLinearInInterpolator()
-    val ACCELERATE_DECELERATE = AccelerateDecelerateInterpolator()
-    val OVERSHOOT = OvershootInterpolator()
-    val CYCLE_3 = CycleInterpolator(3f)
+    val CYCLE_2 = CycleInterpolator(2f)
 }
 
 fun View.fade(initAlpha: Float? = null, alpha: Float = 1f, startDelay: Long = 0,
@@ -201,6 +194,21 @@ fun View.rotateOut(startDelay: Long = 0, build: (ViewPropertyAnimator.() -> Unit
 fun View.morphTo(target: View, startDelay: Long = 0, build: (ViewPropertyAnimator.() -> Unit)? = null) {
     this.rotateOut(startDelay, build)
     target.rotateIn(startDelay, build)
+}
+
+fun View.shake(build: (ViewPropertyAnimator.() -> Unit)? = null) {
+    if (translationX != 0f) return
+    val anim = animate()
+            .translationX(AnimationConstants.TRANSLATION_MICRO.toFloat())
+            .setDuration(AnimationConstants.LONG)
+            .setInterpolator(AnimationConstants.CYCLE_2)
+            .setListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    translationX = 0f
+                }
+            })
+    build?.let { anim.build() }
+    anim.start()
 }
 
 fun colorFade(@ColorRes from: Int, @ColorRes to: Int, update: (Int) -> Unit) {
