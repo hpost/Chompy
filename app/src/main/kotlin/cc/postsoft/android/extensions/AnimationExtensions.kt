@@ -108,25 +108,34 @@ fun easeInVertical(startDelay: Long = 0, vararg views: View, build: (ViewPropert
     }
 }
 
-fun View.easeInVertical(startDelay: Long = 0, build: (ViewPropertyAnimator.() -> Unit)? = null) {
-    if (visibility != View.VISIBLE) {
-        alpha = 0.8f
-        translationY = AnimationConstants.TRANSLATION_SMALL.toFloat()
-        val anim = animate()
-                .alpha(1f)
-                .translationY(0f)
+fun View.easeInVertical(startDelay: Long = 0, build: (ViewPropertyAnimator.() -> Unit)? = null) =
+        easeInVertical(startDelay, this) { build?.let { build() } }
+
+fun easeOutVertical(startDelay: Long = 0, vararg views: View, build: (ViewPropertyAnimator.() -> Unit)? = null) {
+    var offset = AnimationConstants.TRANSLATION_SMALL.toFloat()
+    for (view: View? in views) {
+        if (view == null || view.visibility != View.VISIBLE) {
+            continue
+        }
+        val anim = view.animate()
+                .alpha(0f)
+                .translationY(-offset)
                 .setStartDelay(startDelay)
                 .setDuration(AnimationConstants.LONG)
                 .setInterpolator(AnimationConstants.FAST_OUT_SLOW_IN)
                 .setListener(object : AnimatorListenerAdapter() {
-                    override fun onAnimationStart(animation: Animator) {
-                        visibility = View.VISIBLE
+                    override fun onAnimationEnd(animation: Animator) {
+                        view.visibility = View.INVISIBLE
                     }
                 })
         build?.let { anim.build() }
         anim.start()
+        offset *= 1.5f
     }
 }
+
+fun View.easeOutVertical(startDelay: Long = 0, build: (ViewPropertyAnimator.() -> Unit)? = null) =
+        easeOutVertical(startDelay, this) { build?.let { build() } }
 
 fun colorFade(@ColorRes from: Int, @ColorRes to: Int, update: (Int) -> Unit) {
     val anim = ValueAnimator.ofObject(ArgbEvaluator(), from, to)
