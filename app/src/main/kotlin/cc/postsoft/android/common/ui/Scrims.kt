@@ -9,31 +9,24 @@ import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.RectShape
 import android.view.Gravity
 
-/**
- * Utility methods for creating pretty gradient scrims.
- */
+/** Utility for creating pretty gradient scrims. */
 object Scrims {
 
-    /**
-     * 40% opacity black to transparent
-     */
+    /** 40% opacity black to transparent */
     val TOOLBAR_SCRIM = makeCubicGradientScrimDrawable(
             Color.argb(102, 0, 0, 0), 9, Gravity.TOP)
 
-    /**
-     * transparent to 50% opacity black
-     */
+    /** transparent to 50% opacity black */
     val PHOTO_SCRIM = makeCubicGradientScrimDrawable(
             Color.argb(128, 0, 0, 0), 9, Gravity.BOTTOM)
 
-    /**
-     * 60% opacity black to transparent
-     */
+    /** 60% opacity black to transparent */
     val PHOTO_SCRIM_INVERSE = makeCubicGradientScrimDrawable(
             Color.argb(154, 0, 0, 0), 9, Gravity.TOP)
 
     /**
-     * Creates an approximated cubic gradient using a multi-stop linear gradient. See [this post](https://plus.google.com/+RomanNurik/posts/2QvHVFWrHZf) for more details.
+     * Creates an approximated cubic gradient using a multi-stop linear gradient.
+     * See [this post](https://plus.google.com/+RomanNurik/posts/2QvHVFWrHZf) for more details.
      */
     fun makeCubicGradientScrimDrawable(baseColor: Int, numStops: Int,
                                        gravity: Int): Drawable {
