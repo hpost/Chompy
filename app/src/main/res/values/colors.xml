@@ -3,6 +3,8 @@
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#424242</color>
     <color name="colorAccent">#FFFFFF</color>
+    <color name="error">#F44336</color>
+    <color name="success">@color/green</color>
 
     <color name="orange">#FF9800</color>
     <color name="orangeDark">#F57C00</color>

@@ -39,7 +39,7 @@ fun <T> Observable<Result<T>>.retryAfterErrorResult(attempts: Int = 3): Observab
                 .onErrorReturn { throwable -> Result.error(throwable) }
 
 //inline fun snackError(throwable: Throwable, view: View, description: CharSequence) {
-//    view.snack(string(R.string.error_something_wrong_msg), R.color.error)
+//    view.snackError(string(R.string.error_something_wrong_msg))
 //    Timber.e("$description: $throwable")
 //}
 //

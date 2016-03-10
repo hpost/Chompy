@@ -134,9 +134,9 @@ class MenuView(context: Context, attrs: AttributeSet) : BetterViewAnimator(conte
     val clickListener: (MenuItem) -> Unit = {
         Timber.d("onMenuItemClick: $it")
         when (menu) {
-            Menu.CAVIAR -> snack(msg = "Order from Caviar")
-            Menu.UBER -> snack(msg = "Order from Uber")
-            Menu.SPRIG -> snack(msg = "Order from Sprig")
+            Menu.CAVIAR -> snack("Order from Caviar")
+            Menu.UBER -> snack("Order from Uber")
+            Menu.SPRIG -> snack("Order from Sprig")
         }
     }
 }
