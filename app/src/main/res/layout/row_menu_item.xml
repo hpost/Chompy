@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<cc.postsoft.chompy.ui.main.MenuItemRow
+<cc.femto.chompy.ui.main.MenuItemRow
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,7 +8,7 @@
     android:foreground="?attr/selectableItemBackground"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <cc.postsoft.android.common.ui.AspectRatioImageView
+    <cc.femto.common.ui.widget.AspectRatioImageView
         android:id="@+id/photo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -77,4 +77,4 @@
             tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas nec erat egestas, congue velit id, pretium massa. Sed a hendrerit mauris. Nam in rhoncus turpis, in sodales sem. Sed bibendum id nisl et fringilla. In vel scelerisque lacus. Etiam fringilla sollicitudin condimentum. Praesent pellentesque nibh tincidunt nulla hendrerit auctor. Mauris et sollicitudin tortor, eget posuere dui. Phasellus tempor posuere posuere."/>
 
     </RelativeLayout>
-</cc.postsoft.chompy.ui.main.MenuItemRow>
+</cc.femto.chompy.ui.main.MenuItemRow>
