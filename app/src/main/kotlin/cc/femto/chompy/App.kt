@@ -1,7 +1,7 @@
 package cc.femto.chompy
 
 import android.app.Application
-import com.jakewharton.threetenabp.AndroidThreeTen
+import cc.femto.kommon.Kommon
 import timber.log.Timber
 
 class App : Application() {
@@ -12,9 +12,6 @@ class App : Application() {
         @JvmStatic lateinit var component: AppComponent
     }
 
-//    @Inject
-//    lateinit var preferences : AppPreferences
-
     override fun onCreate() {
         super.onCreate()
         instance = this
@@ -24,12 +21,10 @@ class App : Application() {
                 .build()
         component.inject(this)
 
-        AndroidThreeTen.init(this)
+        Kommon.init(this)
 
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
-            //        } else {
-            //            Timber.plant(CrashlyticsTree())
         }
 
     }

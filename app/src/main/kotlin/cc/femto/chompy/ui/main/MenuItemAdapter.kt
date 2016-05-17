@@ -13,8 +13,8 @@ class MenuItemAdapter(val clickListener: (MenuItem) -> Unit, val picasso: Picass
 
     private var menuItems = emptyList<MenuItem>()
 
-    fun set(menuItems: List<MenuItem>?) {
-        this.menuItems = menuItems ?: emptyList()
+    fun bindTo(menuItems: List<MenuItem>) {
+        this.menuItems = menuItems
         notifyDataSetChanged()
     }
 

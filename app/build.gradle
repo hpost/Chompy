@@ -1,12 +1,29 @@
+buildscript {
+    ext.kotlin_version = '1.0.2'
+    ext.anko_version = '0.8.3'
+    ext.dagger_version = '2.0.2'
+    ext.support_version = '23.4.0'
+    ext.rxjava_version = '1.1.5'
+    ext.rxbinding_version = '0.4.0'
+    ext.retrofit_version = '2.0.1'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
+    }
+}
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "cc.postsoft.chompy"
+        applicationId "cc.femto.chompy"
         minSdkVersion 21
         targetSdkVersion 23
         versionCode 1
@@ -41,22 +58,21 @@ dependencies {
     provided "org.glassfish:javax.annotation:10.0-b28"
 
     // Support Library
-//    compile "com.android.support:appcompat-v7:$support_version"
+    compile "com.android.support:appcompat-v7:$support_version"
     compile "com.android.support:recyclerview-v7:$support_version"
     compile "com.android.support:design:$support_version"
 
     // Rx
-    compile "io.reactivex:rxjava:1.1.1"
-    compile "io.reactivex:rxandroid:1.1.0"
-    compile "io.reactivex:rxkotlin:0.40.1"
+    compile "io.reactivex:rxjava:$rxjava_version"
+    compile "io.reactivex:rxandroid:1.2.0"
+    compile "io.reactivex:rxkotlin:0.55.0"
     compile "com.jakewharton.rxbinding:rxbinding-kotlin:$rxbinding_version"
     compile "com.jakewharton.rxbinding:rxbinding-support-v4-kotlin:$rxbinding_version"
     compile "com.jakewharton.rxbinding:rxbinding-recyclerview-v7-kotlin:$rxbinding_version"
     compile "com.jakewharton.rxbinding:rxbinding-design-kotlin:$rxbinding_version"
-    compile "com.f2prateek.rx.preferences:rx-preferences:1.0.1"
 
-    compile "com.squareup.okhttp3:okhttp:3.1.2"
-    compile "com.squareup.okhttp3:logging-interceptor:3.1.2"
+    compile "com.squareup.okhttp3:okhttp:3.2.0"
+    compile "com.squareup.okhttp3:logging-interceptor:3.2.0"
     compile "com.squareup.moshi:moshi:1.1.0"
     compile "com.squareup.retrofit2:retrofit:$retrofit_version"
     compile "com.squareup.retrofit2:converter-moshi:$retrofit_version"
@@ -67,23 +83,6 @@ dependencies {
     compile "com.jakewharton:kotterknife:0.1.0-SNAPSHOT"
     compile "com.jakewharton.timber:timber:4.1.1"
     compile "com.jakewharton.byteunits:byteunits:0.9.1"
-    compile "com.jakewharton.threetenabp:threetenabp:1.0.3"
-}
-
-buildscript {
-    ext.kotlin_version = '1.0.0'
-    ext.anko_version = '0.8.2'
-    ext.dagger_version = '2.0.2'
-    ext.support_version = '23.2.0'
-    ext.rxbinding_version = '0.4.0'
-    ext.retrofit_version = '2.0.0-beta4'
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
-    }
 }
 
 repositories {

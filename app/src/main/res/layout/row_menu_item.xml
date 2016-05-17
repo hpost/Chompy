@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <cc.femto.chompy.ui.main.MenuItemRow
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:kommon="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:foreground="?attr/selectableItemBackground"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <cc.femto.common.ui.widget.AspectRatioImageView
+    <cc.femto.kommon.ui.widget.AspectRatioImageView
         android:id="@+id/photo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
-        app:widthRatio="1"
-        app:heightRatio="1"/>
+        kommon:heightRatio="1"
+        kommon:widthRatio="1"/>
 
     <ImageView
         android:id="@+id/scrim"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/photo"
         android:layout_alignBottom="@id/photo"
+        android:layout_alignTop="@id/photo"
         tools:ignore="ContentDescription"/>
 
     <View
         android:id="@+id/detail_scrim"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignTop="@id/photo"
         android:layout_alignBottom="@id/photo"
-        android:visibility="invisible"
+        android:layout_alignTop="@id/photo"
         android:alpha="0"
-        android:background="@color/black_50op"/>
+        android:background="@color/black_50op"
+        android:visibility="invisible"/>
 
     <TextView
         android:id="@+id/dish"
@@ -41,8 +41,8 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/photo"
         android:layout_marginBottom="16dp"
-        android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
         tools:text="Senor Pork Burrito"/>
 
     <RelativeLayout
@@ -68,12 +68,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/restaurant"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="16dp"
             android:layout_marginBottom="32dp"
-            android:maxLines="10"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp"
             android:ellipsize="end"
+            android:maxLines="10"
             tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas nec erat egestas, congue velit id, pretium massa. Sed a hendrerit mauris. Nam in rhoncus turpis, in sodales sem. Sed bibendum id nisl et fringilla. In vel scelerisque lacus. Etiam fringilla sollicitudin condimentum. Praesent pellentesque nibh tincidunt nulla hendrerit auctor. Mauris et sollicitudin tortor, eget posuere dui. Phasellus tempor posuere posuere."/>
 
     </RelativeLayout>

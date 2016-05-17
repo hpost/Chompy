@@ -5,7 +5,9 @@ import cc.femto.chompy.BuildConfig
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
-import okhttp3.*
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
@@ -65,7 +67,7 @@ class ApiModule {
 
     @Provides
     @Singleton
-    internal fun provideMenuApi(@Named("Import.io") retrofit: Retrofit): MenuApi = retrofit.create(MenuApi::class.java)
+    internal fun provideMenuApi(@Named("Import.io") retrofit: Retrofit): MenuService = retrofit.create(MenuService::class.java)
 
     @Provides
     @Singleton
@@ -80,6 +82,6 @@ class ApiModule {
 
     @Provides
     @Singleton
-    internal fun provideUberMenuApi(@Named("Uber") retrofit: Retrofit): UberMenuApi = retrofit.create(UberMenuApi::class.java)
+    internal fun provideUberEatsApi(@Named("Uber") retrofit: Retrofit): UberEatsService = retrofit.create(UberEatsService::class.java)
 }
 

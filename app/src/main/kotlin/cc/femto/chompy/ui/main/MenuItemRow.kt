@@ -4,12 +4,16 @@ import android.content.Context
 import android.text.Layout
 import android.util.AttributeSet
 import android.view.View
-import android.widget.*
+import android.widget.ImageView
+import android.widget.RelativeLayout
+import android.widget.TextView
 import butterknife.bindView
 import cc.femto.chompy.R
 import cc.femto.chompy.data.api.model.MenuItem
-import cc.femto.common.extensions.*
-import cc.femto.common.ui.Scrims
+import cc.femto.kommon.extensions.api23
+import cc.femto.kommon.extensions.fade
+import cc.femto.kommon.extensions.translate
+import cc.femto.kommon.ui.Scrims
 import com.jakewharton.rxbinding.view.globalLayouts
 import com.squareup.picasso.Picasso
 import org.jetbrains.anko.dip
@@ -70,7 +74,7 @@ class MenuItemRow(context: Context, attrs: AttributeSet) : RelativeLayout(contex
         restaurant.visibility = if (menuItem.restaurant?.isBlank() ?: true) GONE else VISIBLE
         val priceText = if (menuItem.price?.startsWith('$') ?: true) menuItem.price else "$" + menuItem.price
         restaurant.text = "${menuItem.restaurant}  •  $priceText"
-        description.visibility = if (menuItem.description?.isBlank() ?: true) GONE else VISIBLE
+//        description.visibility = if (menuItem.description?.isBlank() ?: true) GONE else VISIBLE
         description.text = menuItem.description?.trim()
         this.clickListener = clickListener
         // reset animation state
