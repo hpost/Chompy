@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Chompy</string>
+
+    <string name="error_unable_to_load_msg">Something went wrong. Unable to load data.</string>
+    <string name="error_msg">Something went wrong. (%s)</string>
+    <string name="error_retry_btn">Retry</string>
+
+    <string name="empty_msg">There are no dishes on the menu today.</string>
 </resources>
