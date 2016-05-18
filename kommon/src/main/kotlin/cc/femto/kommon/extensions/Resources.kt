@@ -38,7 +38,6 @@ fun View.drawable(@DrawableRes resourceId: Int, tintColorResId: Int): Drawable {
     drawable.setTint(color(tintColorResId))
     return drawable
 }
-
 fun View.string(@StringRes resourceId: Int): String = resources.getString(resourceId)
 fun View.string(@StringRes resourceId: Int, vararg args: Any?): String = resources.getString(resourceId, *args)
 fun View.quantityString(@PluralsRes resourceId: Int, quantity: Int, vararg args: Any?): String = resources.getQuantityString(resourceId, quantity, quantity, *args)
