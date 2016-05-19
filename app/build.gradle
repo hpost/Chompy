@@ -48,8 +48,6 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
 
-    compile project(':kommon')
-
     // Kotlin
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "org.jetbrains.anko:anko-common:$anko_version"
@@ -85,10 +83,13 @@ dependencies {
     compile "com.jakewharton:kotterknife:0.1.0-SNAPSHOT"
     compile "com.jakewharton.timber:timber:4.1.1"
     compile "com.jakewharton.byteunits:byteunits:0.9.1"
+
+    compile 'com.github.hpost:Kommon:master-SNAPSHOT'
 }
 
 repositories {
     mavenCentral()
     maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+    maven { url "https://jitpack.io" }
 }
 
