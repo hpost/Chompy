@@ -1,11 +1,8 @@
 package cc.femto.chompy.ui.main
 
 import cc.femto.chompy.R
-import cc.femto.chompy.data.api.MenuApi
 import cc.femto.chompy.data.api.UberEatsApi
 import cc.femto.chompy.data.api.model.ListMenuResponse
-import cc.femto.chompy.data.api.model.ListUberMenuResponse
-import cc.femto.chompy.data.api.model.Menu
 import cc.femto.chompy.data.api.model.MenuItem
 import cc.femto.kommon.extensions.isSuccess
 import cc.femto.kommon.extensions.string
@@ -16,20 +13,12 @@ import rx.lang.kotlin.plusAssign
 import timber.log.Timber
 import javax.inject.Inject
 
-class MenuPresenter @Inject constructor(val menuApi: MenuApi,
-                                        val uberEatsApi: UberEatsApi)
+class MenuPresenter @Inject constructor(val uberEatsApi: UberEatsApi)
 : MvpContentPresenter<List<MenuItem>, MenuView>() {
 
-    fun loadMenu(menu: Menu) =
-            when (menu) {
-                Menu.CAVIAR -> loadMenuFromMagic(menuApi.listCaviarMenu())
-                Menu.SPRIG -> loadMenuFromMagic(menuApi.listSprigMenu())
-                Menu.UBER -> loadMenuFromUber(uberEatsApi.listUberMenu())
-            }
-
-    private fun loadMenuFromMagic(source: Observable<Result<ListMenuResponse>>) {
+    fun loadMenu() {
         deferLoading()
-        val result = source
+        val result = uberEatsApi.listUberMenu()
                 .doOnCompleted { onLoadingFinished() }
                 .publish().autoConnect() // multiplex
         // success
@@ -46,7 +35,7 @@ class MenuPresenter @Inject constructor(val menuApi: MenuApi,
         }
     }
 
-    private fun loadMenuFromUber(source: Observable<Result<ListUberMenuResponse>>) {
+    private fun loadMenuFromMagic(source: Observable<Result<ListMenuResponse>>) {
         deferLoading()
         val result = source
                 .doOnCompleted { onLoadingFinished() }
