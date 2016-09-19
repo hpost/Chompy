@@ -7,9 +7,8 @@ import timber.log.Timber
 class App : Application() {
 
     companion object {
-        // static annotation allows access from Java code
-        @JvmStatic lateinit var instance: Application
-        @JvmStatic lateinit var component: AppComponent
+        lateinit var instance: Application
+        lateinit var component: AppComponent
     }
 
     override fun onCreate() {

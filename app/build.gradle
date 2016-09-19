@@ -1,11 +1,11 @@
 buildscript {
-    ext.kotlin_version = '1.0.2'
+    ext.kotlin_version = '1.0.3'
     ext.anko_version = '0.8.3'
     ext.dagger_version = '2.0.2'
     ext.support_version = '23.4.0'
-    ext.rxjava_version = '1.1.5'
+    ext.rxjava_version = '1.2.0'
     ext.rxbinding_version = '0.4.0'
-    ext.retrofit_version = '2.0.1'
+    ext.retrofit_version = '2.1.0'
     repositories {
         mavenCentral()
     }
@@ -46,7 +46,22 @@ kapt {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
+
+    // JUnit
+    testCompile "junit:junit:4.12"
+    testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+    testCompile "com.nhaarman:mockito-kotlin:0.6.1"
+
+    // Espresso
+    androidTestCompile "com.android.support:support-annotations:$support_version"
+    androidTestCompile "com.android.support.test:runner:0.4.1"
+    androidTestCompile "com.android.support.test:rules:0.4.1"
+    androidTestCompile "com.android.support.test.espresso:espresso-core:2.2.1"
+    androidTestCompile("com.android.support.test.espresso:espresso-contrib:2.2.1") {
+        exclude group: 'com.android.support', module: 'appcompat'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude module: 'recyclerview-v7'
+    }
 
     // Kotlin
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -84,7 +99,8 @@ dependencies {
     compile "com.jakewharton.timber:timber:4.1.1"
     compile "com.jakewharton.byteunits:byteunits:0.9.1"
 
-    compile 'com.github.hpost:Kommon:master-SNAPSHOT'
+    compile 'cc.femto:kommon-extensions:0.1'
+    compile 'cc.femto:kommon-mvp:0.1'
 }
 
 repositories {
