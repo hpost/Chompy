@@ -2,9 +2,10 @@ buildscript {
     ext.kotlin_version = '1.0.3'
     ext.anko_version = '0.8.3'
     ext.dagger_version = '2.0.2'
-    ext.support_version = '23.4.0'
+    ext.support_version = '24.2.1'
     ext.rxjava_version = '1.2.0'
     ext.rxbinding_version = '0.4.0'
+    ext.okhttp_version = '3.4.1'
     ext.retrofit_version = '2.1.0'
     repositories {
         mavenCentral()
@@ -19,13 +20,13 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 24
+    buildToolsVersion "24.0.2"
 
     defaultConfig {
         applicationId "cc.femto.chompy"
         minSdkVersion 21
-        targetSdkVersion 23
+        targetSdkVersion 24
         versionCode 1
         versionName "1.0"
     }
@@ -52,17 +53,6 @@ dependencies {
     testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
     testCompile "com.nhaarman:mockito-kotlin:0.6.1"
 
-    // Espresso
-    androidTestCompile "com.android.support:support-annotations:$support_version"
-    androidTestCompile "com.android.support.test:runner:0.4.1"
-    androidTestCompile "com.android.support.test:rules:0.4.1"
-    androidTestCompile "com.android.support.test.espresso:espresso-core:2.2.1"
-    androidTestCompile("com.android.support.test.espresso:espresso-contrib:2.2.1") {
-        exclude group: 'com.android.support', module: 'appcompat'
-        exclude group: 'com.android.support', module: 'support-v4'
-        exclude module: 'recyclerview-v7'
-    }
-
     // Kotlin
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "org.jetbrains.anko:anko-common:$anko_version"
@@ -86,8 +76,8 @@ dependencies {
     compile "com.jakewharton.rxbinding:rxbinding-recyclerview-v7-kotlin:$rxbinding_version"
     compile "com.jakewharton.rxbinding:rxbinding-design-kotlin:$rxbinding_version"
 
-    compile "com.squareup.okhttp3:okhttp:3.2.0"
-    compile "com.squareup.okhttp3:logging-interceptor:3.2.0"
+    compile "com.squareup.okhttp3:okhttp:$okhttp_version"
+    compile "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
     compile "com.squareup.moshi:moshi:1.1.0"
     compile "com.squareup.retrofit2:retrofit:$retrofit_version"
     compile "com.squareup.retrofit2:converter-moshi:$retrofit_version"
